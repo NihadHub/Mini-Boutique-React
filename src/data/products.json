@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Nike Air Max 90",
+    "price": 1299,
+    "category": "Chaussures",
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400"
+  },
+  {
+    "id": 2,
+    "name": "T-Shirt Oversize",
+    "price": 199,
+    "category": "Vêtements",
+    "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"
+  },
+  {
+    "id": 3,
+    "name": "Sac à Dos Urban",
+    "price": 449,
+    "category": "Accessoires",
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400"
+  },
+  {
+    "id": 4,
+    "name": "Jean Slim Fit",
+    "price": 349,
+    "category": "Vêtements",
+    "image": "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"
+  },
+  {
+    "id": 5,
+    "name": "Casquette Snapback",
+    "price": 149,
+    "category": "Accessoires",
+    "image": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400"
+  },
+  {
+    "id": 6,
+    "name": "Adidas Stan Smith",
+    "price": 999,
+    "category": "Chaussures",
+    "image": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400"
+  }
+]
