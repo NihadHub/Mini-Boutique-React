@@ -1,9 +1,12 @@
 import { useState } from "react"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import productsData from "./data/products.json"
+
 import Header from "./components/Header"
 import Footer from "./components/Footer"
-import ProductList from "./components/ProductList"
-import Cart from "./components/Cart"
+import Home from "./pages/Home"
+import AddProduct from "./pages/AddProduct"
+import NotFound from "./pages/NotFound"
 
 function App() {
   const [products, setProducts] = useState(productsData)
@@ -13,10 +16,19 @@ function App() {
 
   const toggleDarkMode = () => setDarkMode(!darkMode)
 
- const handleDeleteProduct = (id) => {
-  setProducts(products.filter((p) => p.id !== id))
-  setCartItems(cartItems.filter((item) => item.id !== id))
-}
+  const handleDeleteProduct = (id) => {
+    setProducts(products.filter((p) => p.id !== id))
+    setCartItems(cartItems.filter((item) => item.id !== id))
+  }
+
+  const handleAddProduct = (newProduct) => {
+    const product = {
+      ...newProduct,
+      id: Date.now(),
+      price: Number(newProduct.price),
+    }
+    setProducts([...products, product])
+  }
 
   const handleAddToCart = (product) => {
     const exists = cartItems.find((item) => item.id === product.id)
@@ -58,29 +70,43 @@ function App() {
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0)
 
   return (
-    <div className={`app ${darkMode ? "dark" : ""}`}>
-      <Header
-        cartCount={cartCount}
-        darkMode={darkMode}
-        toggleDarkMode={toggleDarkMode}
-      />
-      <main className="main-content">
-        <ProductList
-          products={products}
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
-          onAddToCart={handleAddToCart}
-          onDeleteProduct={handleDeleteProduct}
+    <BrowserRouter>
+      <div className={`app ${darkMode ? "dark" : ""}`}>
+        <Header
+          cartCount={cartCount}
+          darkMode={darkMode}
+          toggleDarkMode={toggleDarkMode}
         />
-        <Cart
-          cartItems={cartItems}
-          onRemoveFromCart={handleRemoveFromCart}
-          onIncreaseQty={handleIncreaseQty}
-          onDecreaseQty={handleDecreaseQty}
-        />
-      </main>
-      <Footer />
-    </div>
+
+        <main className="main-content">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  products={products}
+                  selectedCategory={selectedCategory}
+                  onSelectCategory={setSelectedCategory}
+                  onAddToCart={handleAddToCart}
+                  onDeleteProduct={handleDeleteProduct}
+                  cartItems={cartItems}
+                  onRemoveFromCart={handleRemoveFromCart}
+                  onIncreaseQty={handleIncreaseQty}
+                  onDecreaseQty={handleDecreaseQty}
+                />
+              }
+            />
+            <Route
+              path="/add-product"
+              element={<AddProduct onAddProduct={handleAddProduct} />}
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
+    </BrowserRouter>
   )
 }
 
